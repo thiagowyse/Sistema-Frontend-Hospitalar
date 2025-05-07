@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Medicamentos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .action-icons {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .action-icons:hover {
+      color: #007bff;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="navbar-placeholder"></div>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Gerenciamento de Medicamentos</h2>
+    <div class="card shadow-lg">
+      <div class="card-header bg-success text-white text-center">
+        <h4 class="mb-0">Lista de Medicamentos</h4>
+      </div>
+      <div class="card-body p-4">
+        <table class="table table-hover align-middle" id="tabela-medicamentos">
+          <thead class="table-light">
+            <tr>
+              <th>Código</th>
+              <th>Nome do Medicamento</th>
+              <th>Dosagem</th>
+              <th>Via de Administração</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dados serão inseridos dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para edição -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Editar Medicamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <input type="hidden" id="editCodigo">
+            <div class="mb-3">
+              <label for="editNome" class="form-label">Nome do Medicamento</label>
+              <input type="text" class="form-control" id="editNome" required>
+            </div>
+            <div class="mb-3">
+              <label for="editDosagem" class="form-label">Dosagem</label>
+              <input type="text" class="form-control" id="editDosagem" required>
+            </div>
+            <div class="mb-3">
+              <label for="editVia" class="form-label">Via de Administração</label>
+              <input type="text" class="form-control" id="editVia" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:9090/medicamento/";
+
+    // Função para buscar medicamentos
+    async function buscarMedicamentos() {
+      try {
+        const response = await fetch(API_URL + 'findAll');
+        if (!response.ok) throw new Error("Erro ao buscar medicamentos");
+        const medicamentos = await response.json();
+        preencherTabela(medicamentos);
+      } catch (error) {
+        console.error("Erro:", error.message);
+      }
+    }
+
+    // Preencher a tabela
+    function preencherTabela(medicamentos) {
+      const tbody = document.querySelector("#tabela-medicamentos tbody");
+      tbody.innerHTML = ""; // Limpa a tabela
+
+      medicamentos.forEach((medicamento) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${medicamento.idMedicamento}</td>
+          <td>${medicamento.nome}</td>
+          <td>${medicamento.dosagem}</td>
+          <td>${medicamento.viaAdministracao}</td>
+          <td>
+            <i class="bi bi-pencil-square text-warning action-icons me-3" title="Editar" onclick="abrirModalEdicao(${medicamento.codigo}, '${medicamento.nome}', '${medicamento.dosagem}', '${medicamento.viaAdministracao}')"></i>
+            <i class="bi bi-trash-fill text-danger action-icons" title="Excluir" onclick="deletarMedicamento(${medicamento.codigo})"></i>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Abrir modal de edição
+    function abrirModalEdicao(codigo, nome, dosagem, viaAdministracao) {
+      document.getElementById("editCodigo").value = codigo;
+      document.getElementById("editNome").value = nome;
+      document.getElementById("editDosagem").value = dosagem;
+      document.getElementById("editVia").value = viaAdministracao;
+      new bootstrap.Modal(document.getElementById("editModal")).show();
+    }
+
+    // Submeter o formulário de edição
+    document.getElementById("editForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const codigo = document.getElementById("editCodigo").value;
+      const medicamentoEditado = {
+        nome: document.getElementById("editNome").value,
+        dosagem: document.getElementById("editDosagem").value,
+        viaAdministracao: document.getElementById("editVia").value,
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/${codigo}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(medicamentoEditado),
+        });
+
+        if (!response.ok) throw new Error("Erro ao atualizar medicamento");
+        alert("Medicamento atualizado com sucesso!");
+        buscarMedicamentos();
+        bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+      } catch (error) {
+        console.error("Erro:", error.message);
+      }
+    });
+
+    // Função para deletar medicamento
+    async function deletarMedicamento(codigo) {
+      if (confirm("Tem certeza que deseja excluir este medicamento?")) {
+        try {
+          const response = await fetch(`${API_URL}/${codigo}`, { method: "DELETE" });
+          if (!response.ok) throw new Error("Erro ao excluir medicamento");
+          alert("Medicamento excluído com sucesso!");
+          buscarMedicamentos();
+        } catch (error) {
+          console.error("Erro:", error.message);
+        }
+      }
+    }
+
+    // Buscar dados ao carregar a página
+    document.addEventListener("DOMContentLoaded", buscarMedicamentos);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    fetch('../navbar/dropdown.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+  </script>
+  
+</body>
+</html>

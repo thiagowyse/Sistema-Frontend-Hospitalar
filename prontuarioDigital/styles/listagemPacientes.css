@@ -1,0 +1,30 @@
+body {
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartao {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-cartao {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.table th {
+    background-color: #f4f4f4;
+}
+
+button {
+    margin-right: 5px;
+}

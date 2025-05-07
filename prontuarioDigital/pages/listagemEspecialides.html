@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Especialidades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .action-icons {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .action-icons:hover {
+            color: #007bff;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Gerenciamento de Especialidades</h2>
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">Lista de Especialidades</h4>
+            </div>
+            <div class="card-body p-4">
+                <table class="table table-hover align-middle" id="tabela-especialidades">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome da Especialidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão inseridos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para edição -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Especialidade</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="editCodigo">
+                        <div class="mb-3">
+                            <label for="editNome" class="form-label">Nome da Especialidade</label>
+                            <input type="text" class="form-control" id="editNome" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:9090/especialidade/";
+
+        // Função para buscar especialidades
+        async function buscarEspecialidades() {
+            try {
+                const response = await fetch(API_URL + 'findAll');
+                if (!response.ok) throw new Error("Erro ao buscar especialidades");
+                const especialidades = await response.json();
+                preencherTabela(especialidades);
+            } catch (error) {
+                console.error("Erro:", error.message);
+            }
+        }
+
+        // Preencher a tabela
+        function preencherTabela(especialidades) {
+            const tbody = document.querySelector("#tabela-especialidades tbody");
+            tbody.innerHTML = ""; // Limpa a tabela
+
+            especialidades.forEach((especialidade) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+          <td>${especialidade.idEspecialidade}</td>
+          <td>${especialidade.nome}</td>
+          <td>
+            <i class="bi bi-pencil-square text-warning action-icons me-3" title="Editar" onclick="abrirModalEdicao(${especialidade.codigo}, '${especialidade.nome}')"></i>
+            <i class="bi bi-trash-fill text-danger action-icons" title="Excluir" onclick="deletarEspecialidade(${especialidade.codigo})"></i>
+          </td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Abrir modal de edição
+        function abrirModalEdicao(codigo, nome) {
+            document.getElementById("editCodigo").value = codigo;
+            document.getElementById("editNome").value = nome;
+            new bootstrap.Modal(document.getElementById("editModal")).show();
+        }
+
+        // Submeter o formulário de edição
+        document.getElementById("editForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const codigo = document.getElementById("editCodigo").value;
+            const especialidadeEditada = {
+                nome: document.getElementById("editNome").value,
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/${codigo}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(especialidadeEditada),
+                });
+
+                if (!response.ok) throw new Error("Erro ao atualizar especialidade");
+                alert("Especialidade atualizada com sucesso!");
+                buscarEspecialidades();
+                bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+            } catch (error) {
+                console.error("Erro:", error.message);
+            }
+        });
+
+        // Função para deletar especialidade
+        async function deletarEspecialidade(codigo) {
+            if (confirm("Tem certeza que deseja excluir esta especialidade?")) {
+                try {
+                    const response = await fetch(`${API_URL}/${codigo}`, { method: "DELETE" });
+                    if (!response.ok) throw new Error("Erro ao excluir especialidade");
+                    alert("Especialidade excluída com sucesso!");
+                    buscarEspecialidades();
+                } catch (error) {
+                    console.error("Erro:", error.message);
+                }
+            }
+        }
+
+        // Buscar dados ao carregar a página
+        document.addEventListener("DOMContentLoaded", buscarEspecialidades);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        fetch('../navbar/dropdown.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+          });
+      </script>
+      
+</body>
+
+</html>
