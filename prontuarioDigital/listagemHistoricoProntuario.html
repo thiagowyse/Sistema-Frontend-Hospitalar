@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela de Prontuários</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin: 0;
+      animation: fadeInBody 0.8s ease-in;
+    }
+
+    .cartao {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      animation: slideUp 0.7s ease-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cartao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .titulo-cartao {
+      font-weight: 600;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-control {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+    }
+
+    .form-control:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+    }
+
+    .btn {
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-success {
+      background-color: #2a5298;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #1e3c72;
+      transform: translateY(-1px);
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-1px);
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="collapse fixed-top" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white h4">Sistema de Prontuário Digital</h5>
+      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+              <!-- Menu: Dashboard -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+              </li>
+
+              <!-- Menu: Prontuários -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="prontuarioDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Prontuários
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="prontuarioDropdown">
+                  <li><a class="dropdown-item" href="cadastroProntuario.html">Cadastro de Prontuário</a></li>
+                  <li><a class="dropdown-item" href="listagemProntuarioExame.html">Exames no Prontuário</a></li>
+                  <li><a class="dropdown-item" href="listagemProntuarioMedicamento.html">Medicamentos no Prontuário</a>
+                  </li>
+                  <li><a class="dropdown-item" href="listagemHistoricoProntuario.html">Histórico de Prontuários</a></li>
+                </ul>
+              </li>
+
+              <!-- Menu: Médicos -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="medicoDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Médicos
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="medicoDropdown">
+                  <li><a class="dropdown-item" href="cadastroMedicos.html">Cadastro de Médicos</a></li>
+                  <li><a class="dropdown-item" href="listagemEspecialides.html">Especialidades</a></li>
+                  <li><a class="dropdown-item" href="listagemMedicosEspecialidades.html">Médico por Especialidade</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Menu: Pacientes -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="pacienteDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Pacientes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                  <li><a class="dropdown-item" href="cadastroPacientes.html">Cadastro de Pacientes</a></li>
+                  <li><a class="dropdown-item" href="listagemPacientes.html">Histórico de Pacientes</a></li>
+                </ul>
+              </li>
+
+
+
+              <!-- Menu: Exames -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="exameDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Exames
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="exameDropdown">
+                  <li><a class="dropdown-item" href="cadastroExames.html">Cadastro de Exames</a></li>
+                  <li><a class="dropdown-item" href="listagemExamesPaciente.html">Exames por Paciente</a></li>
+                </ul>
+              </li>
+
+              <!-- Menu: Receitas -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="receitaDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Receitas
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="receitaDropdown">
+                  <li><a class="dropdown-item" href="cadastroReceitas.html">Cadastro de Receitas</a></li>
+                  <li><a class="dropdown-item" href="listagemReceitasMedicas.html">Receitas Médicas</a></li>
+                  <li><a class="dropdown-item" href="listagemReceitasPacientes.html">Receitas por Paciente</a></li>
+                </ul>
+              </li>
+
+              <!-- Menu: Medicamentos -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="medicamentoDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Medicamentos
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="medicamentoDropdown">
+                  <li><a class="dropdown-item" href="cadastroMedicamentos.html">Cadastro de Medicamentos</a></li>
+                  <li><a class="dropdown-item" href="listagemMedicamento.html">Estoque de Medicamentos</a></li>
+                </ul>
+              </li>
+
+              <!-- Menu: Histórico e Logs -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="historicoDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Histórico e Logs
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="historicoDropdown">
+                  <li><a class="dropdown-item" href="listagemHistoricoAtendimento.html">Histórico de Atendimentos</a>
+                  </li>
+                  <li><a class="dropdown-item" href="logUsuario.html">Logs de Usuários</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+  <div id="navbar-placeholder"></div>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">Listagem de Prontuarios</h2>
+    <div class="card shadow-lg">
+      <div class="card-header text-center">
+        <h4 class="mb-0">Prontuários</h4>
+      </div>
+      <div class="card-body p-4">
+        <table class="table table-hover align-middle" id="tabela-prontuarios">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome do Paciente</th>
+              <th>Nome do Médico</th>
+              <th>Descrição</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Os dados serão inseridos aqui dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Edição -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Editar Prontuário</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <input type="hidden" id="editId" />
+            <div class="mb-3">
+              <label for="editPaciente" class="form-label">Nome do Paciente</label>
+              <input type="text" class="form-control" id="editPaciente" required />
+            </div>
+            <div class="mb-3">
+              <label for="editMedico" class="form-label">Nome do Médico</label>
+              <input type="text" class="form-control" id="editMedico" required />
+            </div>
+            <div class="mb-3">
+              <label for="editDescricao" class="form-label">Descrição</label>
+              <textarea class="form-control" id="editDescricao" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editData" class="form-label">Data</label>
+              <input type="date" class="form-control" id="editData" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    const API_URL = "http://localhost:9090/prontuario/";
+
+    async function buscarProntuarios() {
+      try {
+        const response = await fetch(API_URL + "findAll");
+        if (!response.ok) throw new Error("Erro ao buscar dados");
+        const prontuarios = await response.json();
+        preencherTabela(prontuarios);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    function preencherTabela(prontuarios) {
+      const tbody = document.querySelector("#tabela-prontuarios tbody");
+      tbody.innerHTML = "";
+
+      prontuarios.forEach((prontuario) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+      <td>${prontuario.idProntuario}</td>
+      <td>${prontuario.paciente.nome}</td>
+      <td>${prontuario.medico.nome}</td>
+      <td>${prontuario.descricao}</td>
+      <td>${new Date(prontuario.dataCriacao).toLocaleDateString()}</td>
+      <td>
+        <i class="bi bi-file-earmark-pdf-fill text-primary action-icons me-3 gerar-pdf" 
+           title="Gerar PDF" 
+           style="cursor:pointer"
+           data-prontuario='${JSON.stringify(prontuario).replace(/'/g, "&apos;")}'></i>
+        <i class="bi bi-pencil-square text-warning action-icons me-3" title="Editar" 
+           onclick="abrirModalEdicao(${prontuario.idProntuario}, '${escapeHtml(prontuario.paciente.nome)}', '${escapeHtml(prontuario.medico.nome)}', '${escapeHtml(prontuario.descricao)}', '${prontuario.dataCriacao}')"></i>
+        <i class="bi bi-trash-fill text-danger action-icons me-3" title="Excluir" 
+           onclick="deletarProntuario(${prontuario.idProntuario})"></i>
+      </td>
+    `;
+        tbody.appendChild(tr);
+      });
+    }
+
+
+
+    // Função para escapar aspas simples, etc, na passagem para onclick inline
+    function escapeHtml(text) {
+      if (!text) return "";
+      return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    function abrirModalEdicao(id, nomePaciente, nomeMedico, descricao, data) {
+      document.getElementById("editId").value = id;
+      document.getElementById("editPaciente").value = nomePaciente;
+      document.getElementById("editMedico").value = nomeMedico;
+      document.getElementById("editDescricao").value = descricao;
+      document.getElementById("editData").value = data;
+      new bootstrap.Modal(document.getElementById("editModal")).show();
+    }
+
+    document.getElementById("editForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const id = document.getElementById("editId").value;
+      const prontuarioEditado = {
+        nomePaciente: document.getElementById("editPaciente").value,
+        nomeMedico: document.getElementById("editMedico").value,
+        descricao: document.getElementById("editDescricao").value,
+        dataCriacao: document.getElementById("editData").value,
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(prontuarioEditado),
+        });
+
+        if (!response.ok) throw new Error("Erro ao atualizar prontuário");
+        alert("Prontuário atualizado com sucesso!");
+        buscarProntuarios();
+        bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+      } catch (error) {
+        console.error(error.message);
+      }
+    });
+
+    async function deletarProntuario(id) {
+      if (confirm("Tem certeza que deseja excluir este prontuário?")) {
+        try {
+          const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+          if (!response.ok) throw new Error("Erro ao excluir prontuário");
+          alert("Prontuário excluído com sucesso!");
+          buscarProntuarios();
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+    }
+
+    document.querySelector("#tabela-prontuarios tbody").addEventListener("click", (event) => {
+  if (event.target.classList.contains("gerar-pdf")) {
+    const prontuarioStr = event.target.getAttribute("data-prontuario");
+    const prontuario = JSON.parse(prontuarioStr.replace(/&apos;/g, "'"));
+    gerarPdfProntuario(prontuario);
+  }
+});
+
+
+    async function gerarPdfProntuario(prontuario) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let marginLeft = 15;
+  let verticalOffset = 20;
+  const lineHeight = 10;
+
+  doc.setFontSize(16);
+  doc.text("Relatório de Prontuário", marginLeft, verticalOffset);
+  verticalOffset += lineHeight * 1.5;
+
+  doc.setFontSize(12);
+  doc.text(`Código: ${prontuario.idProntuario}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Paciente: ${prontuario.paciente.nome}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Data de Nascimento: ${new Date(prontuario.paciente.dataNascimento).toLocaleDateString()}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Endereço: ${prontuario.paciente.endereco}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Telefone: ${prontuario.paciente.telefone}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Médico: ${prontuario.medico.nome} (CRM: ${prontuario.medico.crm})`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  const especialidades = prontuario.medico.especialidades.map(e => e.nome).join(", ");
+  doc.text(`Especialidades: ${especialidades}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.text(`Data da Consulta: ${new Date(prontuario.dataCriacao).toLocaleDateString()}`, marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.setFontSize(14);
+  doc.text("Descrição:", marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+
+  doc.setFontSize(12);
+  let descricaoLines = doc.splitTextToSize(prontuario.descricao, 180);
+  doc.text(descricaoLines, marginLeft, verticalOffset);
+  verticalOffset += descricaoLines.length * lineHeight;
+
+  if (prontuario.medicamentos && prontuario.medicamentos.length > 0) {
+    doc.setFontSize(14);
+    doc.text("Medicamentos:", marginLeft, verticalOffset);
+    verticalOffset += lineHeight;
+
+    doc.setFontSize(12);
+    prontuario.medicamentos.forEach(med => {
+      doc.text(`- ${med.nome} | Dosagem: ${med.dosagem} | Via: ${med.viaAdministracao}`, marginLeft + 5, verticalOffset);
+      verticalOffset += lineHeight;
+    });
+  }
+
+  if (prontuario.exames && prontuario.exames.length > 0) {
+    verticalOffset += 5;
+    doc.setFontSize(14);
+    doc.text("Exames:", marginLeft, verticalOffset);
+    verticalOffset += lineHeight;
+
+    doc.setFontSize(12);
+    prontuario.exames.forEach(exame => {
+      doc.text(`- ${exame.nome}: ${exame.descricao}`, marginLeft + 5, verticalOffset);
+      verticalOffset += lineHeight;
+    });
+  }
+
+  verticalOffset += 20;
+  doc.setFontSize(12);
+  doc.text("____________________________________", marginLeft, verticalOffset);
+  verticalOffset += lineHeight;
+  doc.text(`${prontuario.medico.assinatura}`, marginLeft, verticalOffset);
+
+  doc.save(`Prontuario_${prontuario.idProntuario}.pdf`);
+}
+
+    document.addEventListener("DOMContentLoaded", buscarProntuarios);
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Recepcionistas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+ <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin: 0;
+      animation: fadeInBody 0.8s ease-in;
+    }
+
+    .cartao {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      animation: slideUp 0.7s ease-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cartao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .titulo-cartao {
+      font-weight: 600;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-control {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+    }
+
+    .form-control:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+    }
+
+    .btn {
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-success {
+      background-color: #2a5298;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #1e3c72;
+      transform: translateY(-1px);
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-1px);
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="collapse fixed-top" id="navbarToggleExternalContent">
+ <div class="bg-dark p-4">
+    <h5 class="text-white h4">Sistema de Prontuário Digital</h5>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <!-- Menu: Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+            </li>
+
+            <!-- Menu: Prontuários -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="prontuarioDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Prontuários
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="prontuarioDropdown">
+                <li><a class="dropdown-item" href="cadastroProntuario.html">Cadastro de Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioExame.html">Exames no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioMedicamento.html">Medicamentos no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemHistoricoProntuario.html">Histórico de Prontuários</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Médicos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Médicos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicos.html">Cadastro de Médicos</a></li>
+                <li><a class="dropdown-item" href="listagemEspecialides.html">Especialidades</a></li>
+                <li><a class="dropdown-item" href="listagemMedicosEspecialidades.html">Médico por Especialidade</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Pacientes -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="pacienteDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Pacientes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                <li><a class="dropdown-item" href="cadastroPacientes.html">Cadastro de Pacientes</a></li>
+                <li><a class="dropdown-item" href="listagemPacientes.html">Histórico de Pacientes</a></li>
+              </ul>
+            </li>
+
+            
+
+            <!-- Menu: Exames -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="exameDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Exames
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="exameDropdown">
+                <li><a class="dropdown-item" href="cadastroExames.html">Cadastro de Exames</a></li>
+                <li><a class="dropdown-item" href="listagemExamesPaciente.html">Exames por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Receitas -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="receitaDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Receitas
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="receitaDropdown">
+                <li><a class="dropdown-item" href="cadastroReceitas.html">Cadastro de Receitas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasMedicas.html">Receitas Médicas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasPacientes.html">Receitas por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Medicamentos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicamentoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Medicamentos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicamentoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicamentos.html">Cadastro de Medicamentos</a></li>
+                <li><a class="dropdown-item" href="listagemMedicamento.html">Estoque de Medicamentos</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Histórico e Logs -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="historicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Histórico e Logs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="historicoDropdown">
+                <li><a class="dropdown-item" href="listagemHistoricoAtendimento.html">Histórico de Atendimentos</a></li>
+                <li><a class="dropdown-item" href="logUsuario.html">Logs de Usuários</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center text-light">Lista de Recepcionistas</h2>
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white text-center">
+        <h4 class="mb-0">Recepcionistas</h4>
+      </div>
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#modalAdicionar">
+            <i class="bi bi-plus-lg"></i> Adicionar
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle text-light" id="tabela-recepcionistas">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Recepcionistas serão inseridos aqui -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Adicionar -->
+  <div class="modal fade" id="modalAdicionar" tabindex="-1" aria-labelledby="modalAdicionarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-light">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="modalAdicionarLabel">Adicionar Recepcionista</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formAdicionar">
+            <div class="mb-3 text-dark">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3 text-dark">
+              <label for="cpf" class="form-label">CPF</label>
+              <input type="text" class="form-control" id="cpf" required>
+            </div>
+            <div class="mb-3 text-dark">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input type="text" class="form-control" id="telefone" required>
+            </div>
+            <div class="mb-3 text-dark">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100 rounded-pill">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const API_URL = "http://localhost:9090/recepcionista";
+
+    async function buscarRecepcionistas() {
+      try {
+        const response = await fetch(API_URL + '/findAll');
+        if (!response.ok) throw new Error("Erro ao buscar recepcionistas");
+        const dados = await response.json();
+        preencherTabela(dados);
+      } catch (error) {
+        console.error("Erro:", error.message);
+      }
+    }
+
+    function preencherTabela(recepcionistas) {
+      const tbody = document.querySelector("#tabela-recepcionistas tbody");
+      tbody.innerHTML = "";
+      recepcionistas.forEach((r) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.id}</td>
+          <td>${r.nome}</td>
+          <td>${r.cpf}</td>
+          <td>${r.telefone}</td>
+          <td>${r.email}</td>
+          <td>
+            <i class="bi bi-pencil-square text-warning action-icons me-3" title="Editar"></i>
+            <i class="bi bi-trash-fill text-danger action-icons" title="Excluir" onclick="deletarRecepcionista(${r.id})"></i>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("formAdicionar").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const novoRecepcionista = {
+        nome: document.getElementById("nome").value,
+        cpf: document.getElementById("cpf").value,
+        telefone: document.getElementById("telefone").value,
+        email: document.getElementById("email").value,
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(novoRecepcionista),
+        });
+        if (!response.ok) throw new Error("Erro ao adicionar recepcionista");
+        alert("Recepcionista adicionada com sucesso!");
+        buscarRecepcionistas();
+        document.getElementById("formAdicionar").reset();
+        bootstrap.Modal.getInstance(document.getElementById("modalAdicionar")).hide();
+      } catch (error) {
+        console.error("Erro:", error.message);
+      }
+    });
+
+    async function deletarRecepcionista(id) {
+      if (confirm("Tem certeza que deseja excluir esta recepcionista?")) {
+        try {
+          const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+          if (!response.ok) throw new Error("Erro ao excluir recepcionista");
+          alert("Recepcionista excluída com sucesso!");
+          buscarRecepcionistas();
+        } catch (error) {
+          console.error("Erro:", error.message);
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", buscarRecepcionistas);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

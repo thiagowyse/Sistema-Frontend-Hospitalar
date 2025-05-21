@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de Pacientes - Prontuário Digital</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin: 0;
+      animation: fadeInBody 0.8s ease-in;
+    }
+
+    .cartao {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      animation: slideUp 0.7s ease-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cartao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .titulo-cartao {
+      font-weight: 600;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #2a5298;
+      transition: color 0.3s ease;
+    }
+
+    .form-control {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+    }
+
+    .form-control:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+    }
+
+    .btn {
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-success {
+      background-color: #2a5298;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #1e3c72;
+      transform: translateY(-1px);
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-1px);
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="collapse fixed-top" id="navbarToggleExternalContent">
+ <div class="bg-dark p-4">
+    <h5 class="text-white h4">Sistema de Prontuário Digital</h5>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <!-- Menu: Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+            </li>
+
+            <!-- Menu: Prontuários -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="prontuarioDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Prontuários
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="prontuarioDropdown">
+                <li><a class="dropdown-item" href="cadastroProntuario.html">Cadastro de Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioExame.html">Exames no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioMedicamento.html">Medicamentos no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemHistoricoProntuario.html">Histórico de Prontuários</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Médicos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Médicos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicos.html">Cadastro de Médicos</a></li>
+                <li><a class="dropdown-item" href="listagemEspecialides.html">Especialidades</a></li>
+                <li><a class="dropdown-item" href="listagemMedicosEspecialidades.html">Médico por Especialidade</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Pacientes -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="pacienteDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Pacientes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                <li><a class="dropdown-item" href="cadastroPacientes.html">Cadastro de Pacientes</a></li>
+                <li><a class="dropdown-item" href="listagemPacientes.html">Histórico de Pacientes</a></li>
+              </ul>
+            </li>
+
+            
+
+            <!-- Menu: Exames -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="exameDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Exames
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="exameDropdown">
+                <li><a class="dropdown-item" href="cadastroExames.html">Cadastro de Exames</a></li>
+                          <li><a class="dropdown-item" href="listagemExamesPaciente.html">Exames</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Receitas -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="receitaDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Receitas
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="receitaDropdown">
+                <li><a class="dropdown-item" href="cadastroReceitas.html">Cadastro de Receitas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasMedicas.html">Receitas Médicas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasPacientes.html">Receitas por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Medicamentos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicamentoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Medicamentos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicamentoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicamentos.html">Cadastro de Medicamentos</a></li>
+                <li><a class="dropdown-item" href="listagemMedicamento.html">Estoque de Medicamentos</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Histórico e Logs -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="historicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Histórico e Logs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="historicoDropdown">
+                <li><a class="dropdown-item" href="listagemHistoricoAtendimento.html">Histórico de Atendimentos</a></li>
+                <li><a class="dropdown-item" href="logUsuario.html">Logs de Usuários</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="cartao">
+          <div class="card-body">
+            <h3 class="titulo-cartao mb-4 text-center">Cadastro de Paciente</h3>
+
+            <form id="formCadastroPaciente">
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome Completo</label>
+                <input type="text" class="form-control" id="nome" placeholder="Digite o nome completo" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dataNascimento" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="endereco" placeholder="Digite o endereço" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone/Contato</label>
+                <input type="text" class="form-control" id="telefone" placeholder="Digite o telefone ou contato" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="outrosDados" class="form-label">Outros Dados Relevantes</label>
+                <textarea class="form-control" id="outrosDados" rows="3" placeholder="Digite outros dados relevantes (opcional)"></textarea>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="listagemPacientes.html" class="btn btn-danger">Cancelar</a>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS de simulação -->
+<script>
+    const API_URL = "http://localhost:9090/paciente";
+
+    document.getElementById("formPaciente").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const paciente = {
+        nome: document.getElementById("nome").value,
+        endereco: document.getElementById("endereco").value,
+        telefone: document.getElementById("telefone").value,
+        dataNascimento: document.getElementById("dataNascimento").value,
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/salvar`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paciente),
+        });
+
+        if (!response.ok) throw new Error("Erro ao cadastrar paciente");
+
+        // Redirecionar para listagem após salvar com sucesso
+        window.location.href = "listagemPacientes.html";
+      } catch (error) {
+        console.error("Erro:", error.message);
+        alert("Ocorreu um erro ao cadastrar o paciente.");
+      }
+    });
+  </script>
+
+</body>
+</html>

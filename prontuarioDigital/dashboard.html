@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Sistema de Gestão Hospitalar</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2913/2913462.png" type="image/png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    /* Fundo da página e estrutura flex para manter o fundo no espaço vazio */
+    html,
+    body {
+     background: #0b2545;
+      color: #212529;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.5s ease;
+	    animation: fadeInBody 0.8s ease-in;
+    }
+
+    /* Container centralizado com fundo branco, borda arredondada e sombra */
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 40px 30px;
+      margin: 50px auto 50px auto;
+      max-width: 1080px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.3s ease;
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 120px); /* ajustar para preencher altura menos margens */
+    }
+
+    /* Títulos */
+    h1 {
+      font-weight: 700;
+      color: #1a3d7c;
+      margin-bottom: 3rem;
+    }
+
+    /* Cards com sombra e arredondamento */
+    .card {
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+
+    /* Ícones maiores e cor primária */
+    .card i {
+      color: #3a8dde;
+    }
+
+    /* Botões estilo outline primário */
+    .btn-outline-primary {
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: #3a8dde;
+      color: white;
+      border-color: #3a8dde;
+    }
+
+    /* Texto dos cards */
+    .card-title {
+      color: #1a3d7c;
+      font-weight: 700;
+    }
+
+    .card-text {
+      color: #333;
+    }
+	 .btn-success {
+      background-color: #2a5298;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #1e3c72;
+      transform: translateY(-1px);
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-1px);
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="collapse fixed-top" id="navbarToggleExternalContent">
+ <div class="bg-dark p-4">
+    <h5 class="text-white h4">Sistema de Prontuário Digital</h5>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <!-- Menu: Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+            </li>
+
+            <!-- Menu: Prontuários -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="prontuarioDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Prontuários
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="prontuarioDropdown">
+                <li><a class="dropdown-item" href="cadastroProntuario.html">Cadastro de Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioExame.html">Exames no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioMedicamento.html">Medicamentos no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemHistoricoProntuario.html">Histórico de Prontuários</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Médicos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Médicos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicos.html">Cadastro de Médicos</a></li>
+                <li><a class="dropdown-item" href="listagemEspecialides.html">Especialidades</a></li>
+                <li><a class="dropdown-item" href="listagemMedicosEspecialidades.html">Médico por Especialidade</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Pacientes -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="pacienteDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Pacientes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                <li><a class="dropdown-item" href="cadastroPacientes.html">Cadastro de Pacientes</a></li>
+                <li><a class="dropdown-item" href="listagemPacientes.html">Histórico de Pacientes</a></li>
+              </ul>
+            </li>
+
+            
+
+            <!-- Menu: Exames -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="exameDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Exames
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="exameDropdown">
+                <li><a class="dropdown-item" href="cadastroExames.html">Cadastro de Exames</a></li>
+                <li><a class="dropdown-item" href="listagemExamesPaciente.html">Exames por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Receitas -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="receitaDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Receitas
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="receitaDropdown">
+                <li><a class="dropdown-item" href="cadastroReceitas.html">Cadastro de Receitas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasMedicas.html">Receitas Médicas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasPacientes.html">Receitas por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Medicamentos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicamentoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Medicamentos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicamentoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicamentos.html">Cadastro de Medicamentos</a></li>
+                <li><a class="dropdown-item" href="listagemMedicamento.html">Estoque de Medicamentos</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Histórico e Logs -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="historicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Histórico e Logs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="historicoDropdown">
+                <li><a class="dropdown-item" href="listagemHistoricoAtendimento.html">Histórico de Atendimentos</a></li>
+                <li><a class="dropdown-item" href="logUsuario.html">Logs de Usuários</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+  <div id="navbar-placeholder"></div>
+
+  <div class="container">
+    <h1 class="text-center">Dashboard - Sistema de Gestão Hospitalar</h1>
+
+     <div class="container">
+    <h1 class="text-center mb-5">Painel do Sistema Hospitalar</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <!-- Cadastro -->
+      <div class="col">
+        <a href="cadastroExames.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-file-earmark-medical fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Exames</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="cadastroMedicamentos.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-capsule-pill fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Medicamentos</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="cadastroMedicos.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-person-badge fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Médicos</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="cadastroPacientes.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-person-plus fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Pacientes</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="cadastroProntuario.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-journal-medical fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Prontuário</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="cadastroReceitas.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-clipboard-plus fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de Receitas</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Listagens -->
+      <div class="col">
+        <a href="listagemEspecialides.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-layers fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Especialidades</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemExamesPaciente.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-clipboard2-heart fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Exames por Paciente</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemHistoricoAtendimento.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-clock-history fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Histórico de Atendimento</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemMedicamento.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-capsule fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Listagem de Medicamentos</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemMedicosEspecialidades.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-people fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Médicos por Especialidade</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagmPacientes.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-person-lines-fill fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Listagem de Pacientes</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemProntuarioExame.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-journal-check fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Exames no Prontuário</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemReceitasMedicas.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-journal-medical fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Receitas Médicas</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemReceitasPacientes.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-file-medical fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Receitas por Paciente</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="listagemRecepcionistas.html" class="text-decoration-none">
+          <div class="card h-100 text-center p-3">
+            <i class="bi bi-person-video3 fs-1 mb-2"></i>
+            <div class="card-body">
+              <h5 class="card-title">Listagem de Recepcionistas</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+
+  
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    fetch('../navbar/dropdown.html')
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+  </script>
+</body>
+
+</html>

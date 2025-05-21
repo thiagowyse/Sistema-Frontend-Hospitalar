@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receitas por Paciente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin: 0;
+      animation: fadeInBody 0.8s ease-in;
+    }
+
+    .cartao {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      width: 100%;
+      max-width: 700px;
+      animation: slideUp 0.7s ease-out;
+    }
+
+    .titulo-cartao {
+      font-weight: 600;
+      color: #2a5298;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #2a5298;
+    }
+
+    .form-select {
+      border-radius: 0.5rem;
+    }
+
+    .receita-item {
+      border-left: 4px solid #2a5298;
+      padding-left: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .paciente-titulo {
+      color: #2a5298;
+      margin-top: 1.5rem;
+      font-weight: 600;
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="collapse fixed-top" id="navbarToggleExternalContent">
+ <div class="bg-dark p-4">
+    <h5 class="text-white h4">Sistema de Prontuário Digital</h5>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <!-- Menu: Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link text-white" href="dashboard.html">Dashboard</a>
+            </li>
+
+            <!-- Menu: Prontuários -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="prontuarioDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Prontuários
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="prontuarioDropdown">
+                <li><a class="dropdown-item" href="cadastroProntuario.html">Cadastro de Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioExame.html">Exames no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemProntuarioMedicamento.html">Medicamentos no Prontuário</a></li>
+                <li><a class="dropdown-item" href="listagemHistoricoProntuario.html">Histórico de Prontuários</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Médicos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Médicos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicos.html">Cadastro de Médicos</a></li>
+                <li><a class="dropdown-item" href="listagemEspecialides.html">Especialidades</a></li>
+                <li><a class="dropdown-item" href="listagemMedicosEspecialidades.html">Médico por Especialidade</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Pacientes -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="pacienteDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Pacientes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                <li><a class="dropdown-item" href="cadastroPacientes.html">Cadastro de Pacientes</a></li>
+                <li><a class="dropdown-item" href="listagemPacientes.html">Histórico de Pacientes</a></li>
+              </ul>
+            </li>
+
+            
+
+            <!-- Menu: Exames -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="exameDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Exames
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="exameDropdown">
+                <li><a class="dropdown-item" href="cadastroExames.html">Cadastro de Exames</a></li>
+                <li><a class="dropdown-item" href="listagemExamesPaciente.html">Exames por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Receitas -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="receitaDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Receitas
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="receitaDropdown">
+                <li><a class="dropdown-item" href="cadastroReceitas.html">Cadastro de Receitas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasMedicas.html">Receitas Médicas</a></li>
+                <li><a class="dropdown-item" href="listagemReceitasPacientes.html">Receitas por Paciente</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Medicamentos -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="medicamentoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Medicamentos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="medicamentoDropdown">
+                <li><a class="dropdown-item" href="cadastroMedicamentos.html">Cadastro de Medicamentos</a></li>
+                <li><a class="dropdown-item" href="listagemMedicamento.html">Estoque de Medicamentos</a></li>
+              </ul>
+            </li>
+
+            <!-- Menu: Histórico e Logs -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="historicoDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Histórico e Logs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="historicoDropdown">
+                <li><a class="dropdown-item" href="listagemHistoricoAtendimento.html">Histórico de Atendimentos</a></li>
+                <li><a class="dropdown-item" href="logUsuario.html">Logs de Usuários</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+  <div class="cartao">
+    <h2 class="titulo-cartao">Receitas por Paciente</h2>
+
+    <div class="mb-3">
+      <label for="filtro" class="form-label">Filtrar por Paciente</label>
+      <select class="form-select" id="filtro" onchange="filtrarPaciente()">
+        <option value="todos">Todos</option>
+        <option value="maria">Maria Oliveira</option>
+        <option value="jose">José Santos</option>
+        <option value="ana">Ana Lima</option>
+        <option value="carlos">Carlos Souza</option>
+      </select>
+    </div>
+
+    <div id="lista-receitas">
+      <!-- Receitas agrupadas por paciente aparecerão aqui -->
+    </div>
+  </div>
+
+  <script>
+    const receitas = [
+      { paciente: "maria", nome: "Maria Oliveira", medicamento: "Paracetamol 500mg", dosagem: "1 comprimido a cada 8h", data: "10/05/2025" },
+      { paciente: "jose", nome: "José Santos", medicamento: "Ibuprofeno 600mg", dosagem: "1 comprimido a cada 12h", data: "11/05/2025" },
+      { paciente: "ana", nome: "Ana Lima", medicamento: "Amoxicilina 500mg", dosagem: "1 cápsula a cada 8h", data: "09/05/2025" },
+      { paciente: "carlos", nome: "Carlos Souza", medicamento: "Losartana 50mg", dosagem: "1 comprimido ao dia", data: "08/05/2025" },
+      { paciente: "maria", nome: "Maria Oliveira", medicamento: "Dipirona 1g", dosagem: "1 comprimido a cada 6h se dor", data: "12/05/2025" },
+    ];
+
+    function renderizarReceitas(pacienteSelecionado = "todos") {
+      const container = document.getElementById("lista-receitas");
+      container.innerHTML = "";
+
+      const agrupadas = {};
+
+      receitas.forEach(receita => {
+        if (pacienteSelecionado !== "todos" && receita.paciente !== pacienteSelecionado) return;
+
+        if (!agrupadas[receita.nome]) {
+          agrupadas[receita.nome] = [];
+        }
+        agrupadas[receita.nome].push(receita);
+      });
+
+      for (let nome in agrupadas) {
+        const titulo = document.createElement("h5");
+        titulo.className = "paciente-titulo";
+        titulo.textContent = nome;
+        container.appendChild(titulo);
+
+        agrupadas[nome].forEach(receita => {
+          const item = document.createElement("div");
+          item.className = "receita-item";
+          item.innerHTML = `
+            <strong>Medicamento:</strong> ${receita.medicamento}<br>
+            <small><strong>Dosagem:</strong> ${receita.dosagem}</small><br>
+            <small><strong>Data:</strong> ${receita.data}</small>
+          `;
+          container.appendChild(item);
+        });
+      }
+    }
+
+    function filtrarPaciente() {
+      const filtro = document.getElementById("filtro").value;
+      renderizarReceitas(filtro);
+    }
+
+    // Inicializa com todas
+    renderizarReceitas();
+  </script>
+</body>
+
+</html>
